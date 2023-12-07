@@ -1,0 +1,54 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User posts</title>
+    <link rel="stylesheet" href="{%static 'css/userpost.css'%}" />
+  </head>
+
+  <body>
+    <h1>{{request.user.first_name}} Post</h1>
+
+    {% if posts %}
+    <ul>
+      {% for post in posts %}
+      <li>
+        <p>Name: {{ post.user }}</p>
+        <h2>{{ post.title }}</h2>
+        {%if post.image%} {% for image in post.image.all %} {% if image.image %}
+        <img src="{{ image.image.url }}" alt="{{ post.title }} Image" />
+        {% else %}
+        <p>No image available.</p>
+        {% endif %} {% endfor %} {%endif%}
+        <p>{{ post.description }}</p>
+        <p>Date: {{ post.created_at }}</p>
+        <form action="{%url 'post_like' post.id%}" method="post">
+          {% csrf_token %} {%if post.is_liked%}
+          <button type="submit" value="{{post.id}} " name="unlike">
+            Unlike
+          </button>
+          {%else%}
+          <button type="submit" value="{{post.id}} " name="like">like</button>
+          {%endif%}
+        </form>
+        {% comment %} !Like Count {% endcomment %}
+        <p>No. of likes: {{ post.like.count }}</p>
+
+        <a href="{% url 'delete_post' post.id %}" class="delete-button"
+          >Delete Post</a
+        >
+        <a href="{%url 'reviews' post.id%}" class="button-link">Review</a>
+        <br />
+        <br />
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="no-posts">No posts at the moment.</p>
+    {% endif %}
+
+    <a href="{% url 'home' %}" class="button-link">Back</a>
+  </body>
+</html>

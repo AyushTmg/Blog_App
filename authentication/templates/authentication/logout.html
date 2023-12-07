@@ -1,0 +1,22 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Confirmation</title>
+    <link rel="stylesheet" href="{%static 'css/logout.css'%}">
+</head>
+<body>
+    <div class="form-container">
+        <form action="" method="post">
+            {% csrf_token %}
+    
+            <p>Are you sure you want to Log-out?</p>
+            <input type="submit" value="Confirm">
+           <a href="{% url 'home' %}">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,31 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Posts</title>
+<link rel="stylesheet" href="{%static 'css/create_post.css'%}">
+
+</head>
+<body>
+    <h1>Posts</h1>
+
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ post_form.as_p }}
+            {{ image_form.as_p }}
+
+            <div class="image-formset">
+                {{ formset.management_form }}
+                {{ formset.as_p }}
+                
+            </div>
+            <input type="submit" value="Create Post"> 
+        </form>
+    </div>
+    </div>
+
+    
+</body>
+</html>
+

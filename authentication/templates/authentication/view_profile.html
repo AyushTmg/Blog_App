@@ -1,0 +1,46 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{request.user.first_name}} Profile</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/view_profile.css' %}"
+    />
+  </head>
+  <body>
+    {%if user_profile.image%}
+    <img
+      src="{{ user_profile.image.url }}"
+      alt="Profile Image"
+      class="user-image"
+      style="height: 200px; width: 200px"
+    />
+    {%else%}
+    <img
+      src="{% static 'images/default.jpeg' %}"
+      alt="Profile Image"
+      class="user-image"
+      style="height: 200px; width: 200px"
+    />
+    {%endif%}
+
+    <div class="profile-name">
+      {{ request.user.first_name }} {{ request.user.last_name }}
+    </div>
+    <p><strong>Username</strong> {{ user.username }}</p>
+    <p><strong>Email</strong> {{ user.email }}</p>
+    {%if user_profile%}
+    <div class="profile-info">
+      <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
+      <p><strong>Gender:</strong> {{ user_profile.gender }}</p>
+      <p><strong>Location:</strong> {{ user_profile.location }}</p>
+      <p><strong>Phone Number:</strong> {{ user_profile.phone_number }}</p>
+      {%endif%}
+    </div>
+    <a href="/edit_profile/" class="button-link">Add Info</a>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{%static 'css/profile.css'%}">
+
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Profile</h1>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% if form %}
+                {% for form in form %}
+                    <div class="form-group">
+                        <label for="{{ form.name }}">{{ form.label }}</label>
+                        {{ form }}
+                        <div class="error-message">{{ form.errors }}</div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <button type="submit" class="btn btn-save">Save</button>
+        </form>
+    </div>
+</body>
+</html>

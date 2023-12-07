@@ -1,0 +1,44 @@
+{%load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{%static 'css/reviews.css'%}">
+
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Reviews</h1>
+         <a href="{%url 'add_reviews' post_id%}" class="add"> Add Review</a></button>
+<br>
+<br>
+        
+        {% if reviews %}
+        {% for review in reviews %}
+        <div class="card">
+            <h4 class="card-title">Name: {{ review.user }}</h4>
+            <p class="card-text">Description: {{ review.description }}</p>
+            <p class="card-subtitle text-muted">{{ review.date }}</p>
+            {% if user == review.user %}
+            <a href="{% url 'delete_review' review.id %}" class="delete-button"
+              >Delete Post</a
+            >
+            {%endif%}
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="mt-4">No Reviews Yet!</p>
+        {% endif %}
+    </div>
+
+
+</body>
+</html>
+
+
+
+
